@@ -1,0 +1,19 @@
+export const STEP = {
+  SETUP: "SETUP",
+  REQUEST_DEFINITION: "REQUEST_DEFINITION",
+  RESPONSE_DEFINITION: "RESPONSE_DEFINITION",
+  RESPONSE_EXAMPLES: "RESPONSE_EXAMPLES",
+};
+
+export const STEP_TITLE = {
+  SETUP: "Setup",
+  REQUEST_DEFINITION: "Request Definition",
+  RESPONSE_DEFINITION: "Response Definition",
+  RESPONSE_EXAMPLES: "Response Examples",
+};
+
+export const TAB_FORM = {
+  NONE: "NONE",
+  PARAMS: "PARAMS",
+  BODY: "BODY",
+};

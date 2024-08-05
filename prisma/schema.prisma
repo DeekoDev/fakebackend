@@ -1,0 +1,170 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
+    // Further reading:
+    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
+    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
+    url      = env("DATABASE_URL")
+}
+
+model Post {
+    id        String   @id @default(cuid())
+    name      String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    createdBy   User   @relation(fields: [createdById], references: [id])
+    createdById String
+
+    @@index([name])
+}
+
+model OperationExample {
+    id          String @id @default(cuid())
+    endpointId  String
+    operationId String
+
+    operation Operation @relation(fields: [operationId], references: [id])
+    endpoint  Endpoint  @relation(fields: [endpointId], references: [id])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Operation {
+    id         String @id @default(cuid())
+    endpointId String
+    spent      Int    @default(0)
+
+    // request
+    method String
+    URI    String
+    body   String?
+
+    // response
+    status Int
+    data   String?
+    error  String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    endpoint Endpoint           @relation(fields: [endpointId], references: [id])
+    examples OperationExample[]
+}
+
+model Endpoint {
+    id     String @id @default(cuid())
+    URI    String
+    method String
+
+    description       String
+    responseInterface String
+    requestInterface  String?
+
+    projectId String
+    project   Project @relation(fields: [projectId], references: [id])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    operations Operation[]
+    examples   OperationExample[]
+}
+
+model Project {
+    id          String  @id @default(cuid())
+    name        String
+    description String?
+    isPublic    Boolean @default(false)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    authorId  String
+    author    User       @relation(fields: [authorId], references: [id])
+    Endpoints Endpoint[]
+    ApiKeys   ApiKey[]
+}
+
+model ApiKey {
+    id String @id @default(cuid())
+
+    projectId String
+    authorId  String
+
+    project Project @relation(fields: [projectId], references: [id])
+    author  User    @relation(fields: [authorId], references: [id])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+// Necessary for Next auth
+model Account {
+    id                       String  @id @default(cuid())
+    userId                   String
+    type                     String
+    provider                 String
+    providerAccountId        String
+    refresh_token            String? // @db.Text
+    access_token             String? // @db.Text
+    expires_at               Int?
+    token_type               String?
+    scope                    String?
+    id_token                 String? // @db.Text
+    session_state            String?
+    user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    refresh_token_expires_in Int?
+
+    @@unique([provider, providerAccountId])
+}
+
+model Session {
+    id           String   @id @default(cuid())
+    sessionToken String   @unique
+    userId       String
+    expires      DateTime
+
+    createdAt DateTime @default(now())
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+    id   String @id @default(cuid())
+    role String @default("USER")
+
+    name        String?
+    image       String?
+    username    String?
+    description String?
+
+    email         String    @unique
+    emailVerified DateTime?
+    credits       Int       @default(300)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    accounts Account[]
+    sessions Session[]
+    posts    Post[]
+    projects Project[]
+    ApiKeys   ApiKey[]
+}
+
+model VerificationToken {
+    identifier String
+    token      String   @unique
+    expires    DateTime
+
+    @@unique([identifier, token])
+}
