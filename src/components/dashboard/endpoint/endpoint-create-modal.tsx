@@ -453,8 +453,7 @@ export const EndpointCreateModal = ({}: Props) => {
 
             <div className="mt-6 flex justify-between gap-6">
               <p className="text-sm text-light-600">
-                The examples are generated automatically with AI, this examples
-                improve the fidelity of the response.
+                If a error occurs, try to regenerate the examples.
               </p>
               <Button
                 onClick={regenerateExamples}
