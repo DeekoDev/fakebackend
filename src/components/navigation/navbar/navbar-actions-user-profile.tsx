@@ -41,8 +41,12 @@ export const NavbarActionsUserProfile = ({}: Props) => {
                 className="relative h-11 w-11 flex-shrink-0 rounded-full border object-cover object-top"
               />
               <div>
-                <p className="font-medium">Deeko</p>
-                <p className="text-sm text-light-600">@deeko</p>
+                <p className="font-medium">
+                  {session?.user.name || session?.user.username}
+                </p>
+                <p className="text-sm text-light-600">
+                  @{session?.user.username}
+                </p>
               </div>
             </div>
 

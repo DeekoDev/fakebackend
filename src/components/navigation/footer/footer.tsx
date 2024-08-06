@@ -15,7 +15,7 @@ export const Footer = ({}: Props) => {
       <div className="fluid-container mx-auto flex gap-3 py-8">
         <img
           className="h-10 w-10 rounded-full object-cover object-top"
-          src="https://cdn.discordapp.com/avatars/415680145660182529/b4b96902c17d5b19e5f0a0e7c580b8bc.png"
+          src={"https://i.pinimg.com/564x/7f/16/c4/7f16c4622b4243f54027b0aa986edf0d.jpg"}
         />
 
         <div>
