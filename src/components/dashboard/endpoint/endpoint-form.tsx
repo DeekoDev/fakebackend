@@ -10,20 +10,21 @@ import { TAB_FORM } from "@/constants/endpoint.constants";
 import { METHOD } from "@/constants/operation.constants";
 import { Editor } from "@/components/ui/editor";
 import { EndpointFormTab } from "./endpoint-form-tab";
-import { MoveLeft } from "lucide-react";
+import { Copy, MoveLeft } from "lucide-react";
 import { useStorage } from "@/hooks/use-storage";
 import { EndpointFormBody } from "./endpoint-form-body";
 import { EndpointFormArrow } from "./endpoint-form-arrow";
 import { api } from "@/trpc/react";
 import { formatJsonString } from "@/utils/format-json-string";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useModal } from "@/components/providers/modal-provider";
 
 interface Props {
   endpointId: string;
 }
 
 export const EndpointForm = ({ endpointId }: Props) => {
-  const { getEndpoint, addOperation, changeIsFetchingOperation } =
+  const { getEndpoint, addOperation, changeIsFetchingOperation, apiKeys } =
     useDashboard();
   const endpoint = getEndpoint(endpointId);
   const [tab, setTab] = useState(TAB_FORM.PARAMS);
@@ -32,6 +33,8 @@ export const EndpointForm = ({ endpointId }: Props) => {
     "local",
     "true",
   );
+  const modal = useModal();
+
   const [paramsValue, setParamsValue] = useState<{ [key: string]: string }>({});
   const [body, setBody] = useState("");
 
@@ -59,18 +62,16 @@ export const EndpointForm = ({ endpointId }: Props) => {
     }
 
     const params = getURIParams(endpoint.URI);
-    const divided = endpoint.URI.split("/")
-      .filter((uri) => uri !== "")
-      .map((URI) => {
-        return URI.replace(/\:/, "");
-      });
+    const divided = endpoint.URI.split("/").filter((uri) => uri !== "");
 
     return divided.map((dividedURI) => {
-      if (params.includes(dividedURI)) {
-        const value = paramsValue?.[dividedURI];
+      const paramKey = dividedURI.substring(1, dividedURI.length);
+
+      if (dividedURI.startsWith(":") && params.includes(paramKey)) {
+        const value = paramsValue?.[paramKey];
 
         return {
-          uri: dividedURI,
+          uri: paramKey,
           isParam: true,
           value: value?.trim() ? encodeURIComponent(value.trim()) : null,
         };
@@ -163,11 +164,13 @@ export const EndpointForm = ({ endpointId }: Props) => {
       return;
     }
 
-    console.log("data!", {
-      endpointId: endpoint.id,
-      URI: URIFormattedString,
-      body,
-    });
+    if (
+      createOperationMutation.isPending ||
+      getOpExample.isPending ||
+      !allParamsFilled
+    ) {
+      return;
+    }
 
     changeIsFetchingOperation(true);
 
@@ -186,6 +189,15 @@ export const EndpointForm = ({ endpointId }: Props) => {
     setBody("");
   };
 
+  const handleOpenCopy = () => {
+    modal.open("endpoint-definition", {
+      endpoint,
+      apiKeys,
+      URI: URIFormattedString,
+      data: body,
+    });
+  };
+
   if (!endpoint) {
     return null;
   }
@@ -194,7 +206,7 @@ export const EndpointForm = ({ endpointId }: Props) => {
     <div
       className="sticky bottom-0 min-h-[80px] w-full rounded-t-2xl border border-b-0 bg-dark-600 px-6 pb-6 pt-4"
       style={{
-        boxShadow: "0px -16px 16px -6px rgb(0, 0, 0,0.2)",
+        boxShadow: "0px -18px 16px -6px #121212",
       }}
     >
       <div
@@ -221,13 +233,22 @@ export const EndpointForm = ({ endpointId }: Props) => {
         </p>
 
         {/* Fetch */}
-        <Button
-          size={"sm"}
-          onClick={() => handleClickFetch()}
-          disabled={createOperationMutation.isPending || getOpExample.isPending || !allParamsFilled}
-        >
-          {createOperationMutation.isPending ? "Fetching..." : "Fetch"}
-        </Button>
+        <div className="flex gap-2">
+          <Button onClick={handleOpenCopy} variant="ghost" size={"icon-sm"}>
+            <Copy className="h-4 w-4" />
+          </Button>
+          <Button
+            size={"sm"}
+            onClick={() => handleClickFetch()}
+            disabled={
+              createOperationMutation.isPending ||
+              getOpExample.isPending ||
+              !allParamsFilled
+            }
+          >
+            {createOperationMutation.isPending ? "Fetching..." : "Fetch"}
+          </Button>
+        </div>
       </div>
 
       {/* params */}
@@ -245,6 +266,10 @@ export const EndpointForm = ({ endpointId }: Props) => {
                     <p className="overflow-hidden text-ellipsis">{param}</p>
                   </div>
                   <input
+                    disabled={
+                      createOperationMutation.isPending ||
+                      getOpExample.isPending
+                    }
                     className="w-full bg-transparent p-2 outline-none"
                     placeholder="write here"
                     value={paramsValue[param] || ""}

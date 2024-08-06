@@ -68,6 +68,14 @@ export const projectRouter = createTRPCRouter({
       return projects;
     }),
 
+  getAllPublic: publicProcedure.query(async ({ ctx }) => {
+    return ctx.db.project.findMany({
+      where: {
+        isPublic: true,
+      },
+    });
+  }),
+
   create: protectedProcedure
     .input(projectSchema)
     .mutation(async ({ ctx, input }) => {
@@ -125,6 +133,32 @@ export const projectRouter = createTRPCRouter({
         data: {
           projectId: project.id,
           authorId,
+        },
+      });
+    }),
+
+  switchPublicStatus: protectedProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      const authorId = ctx.session.user.id;
+
+      const project = await ctx.db.project.findFirst({
+        where: {
+          id: input,
+          authorId,
+        },
+      });
+
+      if (!project) {
+        throw new Error("Project not found");
+      }
+
+      return ctx.db.project.update({
+        where: {
+          id: input,
+        },
+        data: {
+          isPublic: !project.isPublic,
         },
       });
     }),

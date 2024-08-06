@@ -9,13 +9,15 @@ interface Props {
 }
 
 export const EndpointHeader = ({ endpointId }: Props) => {
-  const { getEndpoint } = useDashboard();
+  const { getEndpoint, apiKeys, endpointOperations } = useDashboard();
   const endpoint = getEndpoint(endpointId);
   const modal = useModal();
 
   const handleClickURI = () => {
     modal.open("endpoint-definition", {
       endpoint,
+      apiKeys,
+      data: endpointOperations?.[0]?.body || null,
     });
   };
 

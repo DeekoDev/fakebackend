@@ -17,7 +17,7 @@ export const OperationCard = ({
   status,
 }: Props) => {
   const hasError = !!error;
-  console.log(hasError);
+
   const statusInfo = useMemo(() => {
     return getStatusInfo(status);
   }, [status]);

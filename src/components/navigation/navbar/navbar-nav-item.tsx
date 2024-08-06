@@ -1,11 +1,22 @@
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-interface Props {}
+interface Props {
+  children: React.ReactNode;
+  href: string;
+}
 
-export const NavbarNavItem = ({}: Props) => {
+export const NavbarNavItem = ({ children, href }: Props) => {
+  const pathname = usePathname();
+  const isActive = pathname === href;
+
   return (
-    <Link href="#" className="text-light-600">
-      Community
+    <Link
+      href={href}
+      className={isActive ? "text-light-500" : "text-light-600"}
+    >
+      {children}
     </Link>
   );
 };

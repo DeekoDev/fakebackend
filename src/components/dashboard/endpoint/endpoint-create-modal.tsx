@@ -79,7 +79,11 @@ export const EndpointCreateModal = ({}: Props) => {
 
   const router = useRouter();
 
-  const createEndpointMutation = api.endpoint.create.useMutation();
+  const createEndpointMutation = api.endpoint.create.useMutation({
+    onError: () => {
+      setStep(STEP.SETUP);
+    },
+  });
 
   const createManyOpExPreviewMutation =
     api.operation.createManyExamplesPreview.useMutation();
@@ -201,12 +205,11 @@ export const EndpointCreateModal = ({}: Props) => {
       utils.endpoint.invalidate();
 
       router.push(`/dashboard/${project.id}/endpoint/${endpoint.id}`);
-      
+
       modal.unlock();
       modal.close({
         force: true,
       });
-
     } catch (error) {
       modal.unlock();
     }
@@ -304,6 +307,10 @@ export const EndpointCreateModal = ({}: Props) => {
             }}
             className="mt-6 flex flex-col gap-3"
           >
+            {createEndpointMutation.isError && (
+              <Error size="sm">{createEndpointMutation.error.message}</Error>
+            )}
+
             <div className="flex gap-3">
               <EndpointCreateModalDropdownMethod
                 value={method}
@@ -417,7 +424,11 @@ export const EndpointCreateModal = ({}: Props) => {
             <div className="scrollbar relative flex max-h-[400px] flex-col gap-3 overflow-y-auto pr-2">
               {isErrorOpMutations &&
                 errorsOpMutations.map((error, i) => {
-                  return <Error key={error.origin}>{error.message}</Error>;
+                  return (
+                    <Error key={error.origin} size="sm">
+                      {error.message}
+                    </Error>
+                  );
                 })}
 
               {!isPendingOpMutations &&

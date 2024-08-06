@@ -7,12 +7,16 @@ import { DashboardSidenavBack } from "./dashboard-sidenav-back";
 import { Project } from "@prisma/client";
 import { DashboardSidenavInfo } from "./dashboard-sidenav-info";
 import { DashboardSidenavEndpointsContainer } from "./dashboard-sidenav-endpoints-container";
+import { getServerAuthSession } from "@/server/auth";
 
 interface Props {
   project: Project;
 }
 
-export const DashboardSidenav = ({ project }: Props) => {
+export const DashboardSidenav = async ({ project }: Props) => {
+  const session = await getServerAuthSession();
+  const isOwn = session?.user.id === project.authorId;
+
   return (
     <div className="fixed left-0 top-0 flex h-screen w-[250px] flex-col border-r p-6">
       {/* Project info */}
@@ -25,21 +29,17 @@ export const DashboardSidenav = ({ project }: Props) => {
             label="Home"
             href={`/dashboard/${project.id}`}
           />
-          {/* <DashboardSidenavLink
-            icon={<Package className="h-full w-full" />}
-            label="Models"
-            href={`/dashboard/${project.id}/models`}
-          /> */}
-          <DashboardSidenavLink
-            icon={<Settings className="h-full w-full" />}
-            label="Settings"
-            href={`/dashboard/${project.id}/settings`}
-          />
+
+          {isOwn && (
+            <DashboardSidenavLink
+              icon={<Settings className="h-full w-full" />}
+              label="Settings"
+              href={`/dashboard/${project.id}/settings`}
+            />
+          )}
         </div>
 
-        <DashboardSidenavEndpointsContainer 
-          project={project}
-        />
+        <DashboardSidenavEndpointsContainer project={project} />
       </div>
 
       {/* back */}

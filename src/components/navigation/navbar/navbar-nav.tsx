@@ -8,7 +8,7 @@ export const NavbarNav = ({}: Props) => {
   return (
     <nav className="flex gap-5">
       <NavbarNavProjects />
-      <NavbarNavItem />
+      <NavbarNavItem href="/community">Community</NavbarNavItem>
     </nav>
   );
 };

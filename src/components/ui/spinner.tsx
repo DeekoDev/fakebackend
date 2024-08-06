@@ -21,6 +21,8 @@ const spinnerVariants = cva(
       },
       defaultVariants: {
         variant: "default",
+        weight: "thick",
+        size: "md",
       },
     },
   },

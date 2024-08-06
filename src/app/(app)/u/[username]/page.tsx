@@ -53,7 +53,7 @@ const ProfilePage = async ({ params: { username } }: Props) => {
                 : "No projects found."}
             </p>
 
-            <CreateProjectButton />
+            {isOwner && <CreateProjectButton />}
           </div>
         )}
 

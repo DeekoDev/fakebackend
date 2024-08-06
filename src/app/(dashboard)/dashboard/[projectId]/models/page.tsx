@@ -2,7 +2,7 @@ interface Props {}
 
 const DashboardModelsPage = ({}: Props) => {
   return (
-    <div>page</div>
+    <div>😞</div>
   )
 }
 

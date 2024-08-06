@@ -8,7 +8,7 @@ interface Props extends Project {}
 export const ProjectCard = ({ name, description, id }: Props) => {
   return (
     <Link href={`/dashboard/${id}`}>
-      <article className="relative z-0 rounded-lg border bg-dark-600 p-4  pb-8 transition-colors duration-100 hover:bg-dark-500">
+      <article className="relative z-0 h-[124px] rounded-lg border bg-dark-600 p-4 pb-8 transition-colors duration-100 hover:bg-dark-500">
         <div>
           <p className="text-lg font-medium">{name ?? "Mango"}</p>
         </div>

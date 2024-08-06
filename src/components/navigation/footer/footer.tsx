@@ -1,18 +1,16 @@
 import { Logo } from "@/components/brand/logo";
+import { HackatonCTA } from "@/components/home/hackaton-cta";
 import { MoveRight } from "lucide-react";
 
 interface Props {}
 
 export const Footer = ({}: Props) => {
   return (
-    <div className=" bg-dark-900">
+    <div className="bg-dark-900">
       <div className="fluid-container mx-auto flex justify-between border-b py-8">
         <Logo />
 
-        <div className="flex w-fit items-center gap-1 rounded-full bg-green-900/30 px-4 py-1.5 text-sm font-medium text-green-400">
-          Midudev/Vercel Hackathon 2024
-          <MoveRight className="h-4 w-4" />
-        </div>
+        <HackatonCTA />
       </div>
       <div className="fluid-container mx-auto flex gap-3 py-8">
         <img
@@ -21,7 +19,7 @@ export const Footer = ({}: Props) => {
         />
 
         <div>
-          <p className="text-sm text-light-600 font-medium">Discord</p>
+          <p className="text-sm font-medium text-light-600">Discord</p>
           <p className="font-medium">@deekodev</p>
         </div>
       </div>

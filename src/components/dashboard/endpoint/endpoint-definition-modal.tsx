@@ -3,22 +3,37 @@ import { useModal } from "@/components/providers/modal-provider";
 import { Editor } from "@/components/ui/editor";
 import { Modal } from "@/components/ui/modal";
 import { api } from "@/trpc/react";
-import { Endpoint } from "@prisma/client";
+import { ApiKey, Endpoint } from "@prisma/client";
 import { OperationMethod } from "../../operation/operation-method";
 import { OperationExample } from "../../operation/operation-example";
 import { OperationCard } from "../../operation/operation-card";
+import { endpointToFetch } from "@/utils/endpoint-to-fetch";
 
 interface Props {}
 
 export const EndpointDefinitionModal = ({}: Props) => {
   const modal = useModal();
   const endpoint = modal.payload?.endpoint as Endpoint | null;
+  const apiKeys = modal.payload?.apiKeys as ApiKey[] | null;
+
+  const URI = modal.payload?.URI as string | null;
+  const data = modal.payload?.data as string | null;
 
   const operationExamples = api.operation.getExamplesByEndpointId.useQuery(
     endpoint?.id || "",
   );
 
   if (!endpoint) return null;
+
+  const fetchExample =
+    apiKeys && apiKeys?.length > 0
+      ? endpointToFetch({
+          apiKey: apiKeys[0] as ApiKey,
+          endpoint,
+          URI: URI ?? undefined,
+          data: data ?? undefined,
+        })
+      : null;
 
   return (
     <Modal
@@ -32,6 +47,28 @@ export const EndpointDefinitionModal = ({}: Props) => {
       </div>
 
       <p className="mt-2 text-light-600">{endpoint.description}</p>
+
+      <div className="mt-6">
+        <h2>Fetch</h2>
+
+        <Editor
+          className="mt-2"
+          height={150}
+          editorProps={{
+            defaultLanguage: "typescript",
+            defaultValue:
+              fetchExample || "// Create a API key see the fetch function",
+            options: {
+              readOnly: true,
+              wordWrap: "on",
+              wrappingIndent: "indent",
+              minimap: {
+                enabled: false,
+              },
+            },
+          }}
+        />
+      </div>
 
       {endpoint.requestInterface && (
         <div className="mt-6">
@@ -77,7 +114,7 @@ export const EndpointDefinitionModal = ({}: Props) => {
 
       <div className="mt-6">
         <h2>Examples</h2>
-        <div className="flex flex-col gap-4 mt-2">
+        <div className="mt-2 flex flex-col gap-4">
           {operationExamples.data?.map((opExample, i) => {
             const op = opExample.operation;
             return <OperationCard key={`example_${i}`} {...op} />;

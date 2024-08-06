@@ -20,7 +20,7 @@ export const EndpointOperationsContainer = ({ endpointId }: Props) => {
   if (!endpoint) return null;
 
   return (
-    <div className="flex flex-grow flex-col gap-6 py-6">
+    <div className="flex flex-grow flex-col gap-4 py-6">
       {isFetchingOperation && <Skeleton className="h-[300px]" />}
 
       {isPendingOperation && (
@@ -32,7 +32,7 @@ export const EndpointOperationsContainer = ({ endpointId }: Props) => {
       )}
 
       {endpointOperations.map((operation) => {
-        return <OperationCard {...operation} />;
+        return <OperationCard key={operation.id} {...operation} />;
       })}
     </div>
   );

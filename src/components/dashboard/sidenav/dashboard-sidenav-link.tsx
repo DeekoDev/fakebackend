@@ -18,7 +18,7 @@ export const DashboardSidenavLink = ({ icon, label, href }: Props) => {
     <Link
       href={href}
       className={cn(
-        "flex items-center gap-2 rounded-lg p-3 text-sm transition-colors duration-100 ease-in hover:bg-dark-400",
+        "flex items-center gap-2 rounded-lg p-3 text-sm transition-colors duration-100 ease-in hover:bg-dark-500",
         isActive && "bg-dark-400 "
       )}
     >

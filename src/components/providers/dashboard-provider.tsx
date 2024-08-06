@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 
 interface DashboardContext {
   project: Project | null;
+  overwriteProject: (project: Project) => void;
   endpoints: Endpoint[];
   addEndpoint: (endpoint: Endpoint) => void;
   endpoint: Endpoint | null;
@@ -37,6 +38,7 @@ const dashboardContext = createContext<DashboardContext>({
   apiKeys: [],
   addApiKey: () => {},
   isPendingApiKeys: false,
+  overwriteProject: () => {},
 });
 
 interface Props {
@@ -136,6 +138,10 @@ export const DashboardProvider = ({
     setIsFetchingOperation(value);
   };
 
+  const overwriteProject = (project: Project) => {
+    setProject(project);
+  };
+
   return (
     <dashboardContext.Provider
       value={{
@@ -152,6 +158,7 @@ export const DashboardProvider = ({
         apiKeys,
         addApiKey,
         isPendingApiKeys: apiKeysQuery.isLoading,
+        overwriteProject,
       }}
     >
       {children}
