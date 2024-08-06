@@ -17,7 +17,9 @@ export const NavbarNavItem = ({ children, href }: Props) => {
       href={href}
       className={cn(
         "clicky rounded-lg bg-dark-600 py-3 text-center active:bg-dark-500 md:rounded-none md:bg-transparent md:py-0",
-        isActive ? "text-light-500 bg-dark-400 md:bg-transparent" : "text-light-600",
+        isActive
+          ? "bg-dark-400 text-light-500 md:bg-transparent"
+          : "text-light-600",
       )}
     >
       {children}

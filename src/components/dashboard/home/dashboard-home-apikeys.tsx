@@ -7,17 +7,15 @@ interface Props {}
 
 export const DashboardHomeApiKeys = ({}: Props) => {
   return (
-    <div className="mt-8 w-full rounded-2xl border bg-dark-700 shadow-lg p-8 pb-12">
-      
-        <h2 className="text-lg font-medium">API KEY</h2>
-        <p className="mt-4 max-w-md text-light-600">
-          Create a API KEY to access to the API from your app! (you can test the
-          API's without key on fakebackend)
-        </p>
+    <div className="mt-8 w-full rounded-2xl border bg-dark-700 p-8 pb-12 shadow-lg">
+      <h2 className="text-lg font-medium">API KEY</h2>
+      <p className="mt-2 max-w-md text-light-600">
+        You can create a new API Key to access to your project from external
+        clients.
+      </p>
 
-        <DashboardHomeApiKeysCreate />
-        <DashboardHomeApiKeysContainer />
-    
+      <DashboardHomeApiKeysCreate />
+      <DashboardHomeApiKeysContainer />
     </div>
   );
 };

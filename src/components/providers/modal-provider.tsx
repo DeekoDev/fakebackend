@@ -8,12 +8,14 @@ import { SetupUsernameModal } from "../profile/configuration/setup-username-moda
 import { ProjectCreateModal } from "../project/create/project-create-modal";
 import { EndpointCreateModal } from "../dashboard/endpoint/endpoint-create-modal";
 import { EndpointDefinitionModal } from "../dashboard/endpoint/endpoint-definition-modal";
+import { HomeHowWorkModal } from "../home/home-how-work-modal";
 
 const modals = {
   "project-create": <ProjectCreateModal />,
   "setup-username": <SetupUsernameModal />,
   "endpoint-create": <EndpointCreateModal />,
   "endpoint-definition": <EndpointDefinitionModal />,
+  "home-how-work": <HomeHowWorkModal />,
 };
 
 export type ModalKey = keyof typeof modals;

@@ -29,12 +29,13 @@ export const DashboardHomeApiKeysCreate = ({}: Props) => {
     <>
       <div className="mt-8 flex gap-3">
         <Button
+          variant={ apiKeys.length === 0 ? "default" : "secondary" }
           disabled={createApiKeyMutation.isPending || hasReachedMaxApiKeys}
           onClick={() => handleClickCreate()}
         >
           {!createApiKeyMutation.isPending ? "Create API KEY" : "Creating..."}
         </Button>
-        <Button variant="secondary">Documentation</Button>
+        {/* <Button variant="secondary">Documentation</Button> */}
       </div>
 
       {createApiKeyMutation.error && (

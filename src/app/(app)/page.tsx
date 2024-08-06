@@ -1,6 +1,7 @@
 import { HackatonCTA } from "@/components/home/hackaton-cta";
 import { HomeExploreProjects } from "@/components/home/home-explore-projects";
 import { HomeHeroImage } from "@/components/home/home-hero-image";
+import { HomeHowWorkButton } from "@/components/home/home-how-work-button";
 import { HomeStartProject } from "@/components/home/home-start-project";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
@@ -35,7 +36,7 @@ const HomePage = ({}: Props) => {
 
           <div className="mt-12 flex items-center gap-3">
             <HomeStartProject />
-            <Button variant="ghost">How it works</Button>
+            <HomeHowWorkButton />
           </div>
         </div>
         <HomeHeroImage />
