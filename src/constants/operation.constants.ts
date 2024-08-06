@@ -1,6 +1,6 @@
-export const OPERATION_DEFAULT_RESPONSE_INTERFACE = `interface Data {\n\tname: string;\n}`;
+export const OPERATION_DEFAULT_RESPONSE_INTERFACE = `interface Data {\n\tping: string;\n}`;
 
-export const OPERATION_DEFAULT_REQUEST_INTERFACE = `interface Body {\n\tname: string;\n}`;
+export const OPERATION_DEFAULT_REQUEST_INTERFACE = `interface Body {\n\tpong: string;\n}`;
 
 export const METHOD = {
   GET: "GET",
