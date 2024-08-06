@@ -32,7 +32,7 @@ export const ProjectCreateModal = ({}: Props) => {
 
     try {
       const project = await mutation.mutateAsync(data);
-      utils.project.invalidate();
+      await utils.project.invalidate();
       router.push(`/dashboard/${project.id}`);
 
       modal.close({

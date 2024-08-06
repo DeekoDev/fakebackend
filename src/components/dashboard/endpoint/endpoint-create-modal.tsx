@@ -201,8 +201,10 @@ export const EndpointCreateModal = ({}: Props) => {
 
       addEndpoint(endpoint);
 
-      utils.operation.invalidate();
-      utils.endpoint.invalidate();
+      await Promise.all([
+        utils.operation.invalidate(),
+        utils.endpoint.invalidate(),
+      ]);
 
       router.push(`/dashboard/${project.id}/endpoint/${endpoint.id}`);
 
@@ -461,7 +463,9 @@ export const EndpointCreateModal = ({}: Props) => {
                 }
                 variant="secondary"
               >
-                {isPendingOpMutations ? "Regenerating..." : "Regenerate"}
+                {createManyOpExPreviewMutation.isPending
+                  ? "Regenerating..."
+                  : "Regenerate"}
               </Button>
             </div>
           </div>

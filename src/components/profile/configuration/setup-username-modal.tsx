@@ -47,7 +47,7 @@ export const SetupUsernameModal = ({}: Props) => {
 
     const newUser = await mutation.mutateAsync(data);
     overwrite(newUser);
-    utils.user.findByUsername.invalidate();
+    await utils.user.findByUsername.invalidate();
 
     close({
       force: true,

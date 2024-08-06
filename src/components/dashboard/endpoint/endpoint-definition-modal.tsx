@@ -57,7 +57,7 @@ export const EndpointDefinitionModal = ({}: Props) => {
           editorProps={{
             defaultLanguage: "typescript",
             defaultValue:
-              fetchExample || "// Create a API key see the fetch function",
+              fetchExample || "// Create a ApiKey to see the fetch function",
             options: {
               readOnly: true,
               wordWrap: "on",

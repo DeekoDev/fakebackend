@@ -180,7 +180,7 @@ export const EndpointForm = ({ endpointId }: Props) => {
       body: body || null,
     });
 
-    utils.operation.invalidate();
+    await utils.operation.invalidate();
 
     changeIsFetchingOperation(false);
     addOperation(operation);

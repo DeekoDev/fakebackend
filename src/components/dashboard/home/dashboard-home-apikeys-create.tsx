@@ -17,8 +17,10 @@ export const DashboardHomeApiKeysCreate = ({}: Props) => {
   const handleClickCreate = async () => {
     if (!project) return;
     const apiKey = await createApiKeyMutation.mutateAsync(project.id);
-    utils.project.getApiKeys.invalidate();
-    utils.project.findByApiKey.invalidate();
+    await Promise.all([
+      utils.project.getApiKeys.invalidate(),
+      utils.project.findByApiKey.invalidate(),
+    ]);
 
     addApiKey(apiKey);
   };
@@ -27,9 +29,7 @@ export const DashboardHomeApiKeysCreate = ({}: Props) => {
     <>
       <div className="mt-8 flex gap-3">
         <Button
-          disabled={
-            createApiKeyMutation.isPending || hasReachedMaxApiKeys
-          }
+          disabled={createApiKeyMutation.isPending || hasReachedMaxApiKeys}
           onClick={() => handleClickCreate()}
         >
           {!createApiKeyMutation.isPending ? "Create API KEY" : "Creating..."}
