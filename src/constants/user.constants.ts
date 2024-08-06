@@ -8,4 +8,4 @@ export const USER_ROLE: Record<Role, Role> = {
 };
 
 export const USER_DEFAULT_IMAGE =
-  "https://i.pinimg.com/564x/70/be/ea/70beeaefce93a824ca8b11d7d25b7130.jpg";
+  "https://imagedelivery.net/0VK4YOgiY_3ex-SewiQEFw/886a0098-dd1e-411b-0230-2b79f0d9ed00/public";
