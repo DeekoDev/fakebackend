@@ -9,11 +9,13 @@ import { NavbarNavProjects } from "./navbar-nav-projects";
 import { NavbarNavItem } from "./navbar-nav-item";
 import { usePathname } from "next/navigation";
 import { useBodyLock } from "@/components/providers/body-lock-provider";
+import { useSession } from "@/components/providers/session-provider";
 
 interface Props {}
 
 export const NavbarMobile = ({}: Props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { session } = useSession();
   const bodyLock = useBodyLock();
 
   const pathname = usePathname();
@@ -34,6 +36,8 @@ export const NavbarMobile = ({}: Props) => {
   const closeMenu = () => {
     setIsOpen(false);
   };
+
+  if (!session) return null;
 
   return (
     <>

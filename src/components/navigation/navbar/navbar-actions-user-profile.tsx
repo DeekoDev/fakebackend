@@ -5,6 +5,7 @@ import { Overlay } from "@/components/ui/overlay";
 import { USER_DEFAULT_IMAGE } from "@/constants/user.constants";
 import { useDropdown } from "@/hooks/use-dropdown";
 import { LogOut, User } from "lucide-react";
+import { signOut } from "next-auth/react";
 
 import Link from "next/link";
 
@@ -13,6 +14,11 @@ interface Props {}
 export const NavbarActionsUserProfile = ({}: Props) => {
   const { session } = useSession();
   const { open, isOpen, toggle, close } = useDropdown();
+
+  const handleClickLogout = () => {
+    // logout
+    signOut();
+  };
 
   // convert this to a dropdown component
   return (
@@ -48,7 +54,10 @@ export const NavbarActionsUserProfile = ({}: Props) => {
                 <User className="inline-block h-4 w-4" />
                 Profile
               </Link>
-              <button className="flex w-full items-center gap-2 rounded-xl px-3 py-3 text-left text-sm text-light-600 hover:bg-dark-500 hover:text-light-500">
+              <button
+                onClick={handleClickLogout}
+                className="flex w-full items-center gap-2 rounded-xl px-3 py-3 text-left text-sm text-light-600 hover:bg-dark-500 hover:text-light-500"
+              >
                 <LogOut className="inline-block h-4 w-4" />
                 Logout
               </button>
