@@ -1,5 +1,6 @@
 import { DashboardSidenav } from "@/components/dashboard/sidenav/dashboard-sidenav";
 import { DashboardProvider } from "@/components/providers/dashboard-provider";
+import { DashboardSidenavMobile } from "@/components/dashboard/sidenav/dashboard-sidenav-mobile";
 import { api } from "@/trpc/server";
 import { notFound } from "next/navigation";
 
@@ -23,8 +24,13 @@ const Layout = async ({ children, params: { projectId } }: Props) => {
 
   return (
     <DashboardProvider project={project} endpoints={endpoints}>
-      <DashboardSidenav project={project} />
-      <div className="ml-[250px]">
+      <DashboardSidenavMobile project={project}>
+        <DashboardSidenav project={project} />
+      </DashboardSidenavMobile>
+      <div className="fixed left-0 top-0 hidden h-screen w-[250px] border-r lg:block">
+        <DashboardSidenav project={project} />
+      </div>
+      <div className="lg:ml-[250px]">
         <div className="fluid-container mx-auto">{children}</div>
       </div>
     </DashboardProvider>

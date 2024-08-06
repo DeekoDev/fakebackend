@@ -24,5 +24,5 @@ export const NavbarActionsUserCreate = ({}: Props) => {
 
   };
 
-  return <Button onClick={handleClick}>Create</Button>;
+  return <Button onClick={handleClick} size="sm">Create</Button>;
 };

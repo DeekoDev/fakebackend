@@ -4,6 +4,9 @@ import { NavbarNav } from "./navbar-nav";
 import { Suspense } from "react";
 import { NavbarActionsFallback } from "./navbar-actions-fallback";
 import Link from "next/link";
+import { Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { NavbarMobile } from "./navbar-mobile";
 
 interface Props {}
 
@@ -18,9 +21,13 @@ export const Navbar = ({}: Props) => {
           <NavbarNav />
         </div>
 
-        <Suspense fallback={<NavbarActionsFallback />}>
-          <NavbarActions />
-        </Suspense>
+        <div className="flex items-center gap-2">
+          <Suspense fallback={<NavbarActionsFallback />}>
+            <NavbarActions />
+          </Suspense>
+
+          <NavbarMobile />
+        </div>
       </div>
     </div>
   );

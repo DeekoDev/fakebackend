@@ -30,7 +30,10 @@ export const NavbarNavProjects = ({}: Props) => {
   return (
     <button
       onClick={() => handleClick()}
-      className={cn(isActive ? "text-light-500" : "text-light-600")}
+      className={cn(
+        "clicky rounded-lg bg-dark-600 py-3 text-center active:bg-dark-500 md:rounded-none md:bg-transparent md:py-0",
+        isActive ? "text-light-500 bg-dark-400 md:bg-transparent" : "text-light-600",
+      )}
     >
       Projects
     </button>

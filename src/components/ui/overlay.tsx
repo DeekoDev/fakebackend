@@ -2,6 +2,7 @@
 import { cn } from "@/utils/cn";
 import { type VariantProps, cva } from "class-variance-authority";
 import { useBodyLock } from "../providers/body-lock-provider";
+import { useEffect } from "react";
 
 const overlayVariants = cva("fixed inset-0 z-30", {
   variants: {
@@ -24,6 +25,8 @@ interface Props
 
 const Overlay = ({ className, style, children, variant, ...props }: Props) => {
   const { paddingRight } = useBodyLock();
+
+
 
   return (
     <div

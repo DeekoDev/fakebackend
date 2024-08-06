@@ -11,7 +11,7 @@ const DashboardSettingsPage = ({}: Props) => {
         Configure your project settings here.
       </p>
 
-      <div className="mt-8 flex items-center justify-between gap-8 rounded-2xl border bg-dark-700 p-8">
+      <div className="mt-8 flex items-start md:items-center md:justify-between gap-8 rounded-2xl border flex-col md:flex-row bg-dark-700 p-8">
         <div>
           <h2 className="text-lg font-medium">Visibility</h2>
           <p className="mt-1 max-w-md text-light-600">

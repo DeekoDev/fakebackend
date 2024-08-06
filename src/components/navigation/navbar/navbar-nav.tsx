@@ -6,7 +6,7 @@ interface Props {}
 
 export const NavbarNav = ({}: Props) => {
   return (
-    <nav className="flex gap-5">
+    <nav className="gap-5 hidden md:flex">
       <NavbarNavProjects />
       <NavbarNavItem href="/community">Community</NavbarNavItem>
     </nav>

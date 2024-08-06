@@ -11,7 +11,7 @@ export const DashboardSidenavInfo = ({}: Props) => {
     <div className="pb-4">
       <h2 className="font-medium text-lg">{project?.name || "no-name"}</h2>
       {project?.description && (
-        <p className="mt-1 overflow-hidden text-ellipsis text-sm text-light-600">
+        <p className="mt-4 md:mt-1  overflow-hidden text-ellipsis text-sm text-light-600">
           {project.description}
         </p>
       )}

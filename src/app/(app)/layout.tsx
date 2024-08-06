@@ -10,6 +10,7 @@ const Layout = ({ children }: Props) => {
     <>
       <div className="min-h-screen">
         <Navbar />
+
         {children}
       </div>
       <Footer />

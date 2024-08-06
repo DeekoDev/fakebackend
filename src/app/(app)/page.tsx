@@ -19,12 +19,8 @@ interface Props {}
 const HomePage = ({}: Props) => {
   return (
     <div className="fluid-container mx-auto pb-24 pt-6">
-      <div className="flex w-full rounded-2xl border bg-dark-700 shadow-lg group">
-        <div className="flex-1 p-14">
-          {/* <div className="flex w-fit items-center gap-1 rounded-full bg-green-900/30 px-4 py-1.5 text-sm font-medium text-green-400">
-          Midudev/Vercel Hackathon 2024
-          <MoveRight className="h-4 w-4" />
-          </div> */}
+      <div className="group flex w-full rounded-2xl border bg-dark-700 shadow-lg">
+        <div className="flex-1 p-8 md:p-14">
           <HackatonCTA />
 
           <h2 className="mt-6 text-4xl font-medium leading-tight [&>span]:text-green-400">
@@ -45,14 +41,14 @@ const HomePage = ({}: Props) => {
         <HomeHeroImage />
       </div>
 
-      <h2 className="mt-20 font-medium text-green-400">Features</h2>
+      <h2 className="mt-14 font-medium text-green-400 md:mt-20">Features</h2>
       <h3 className="mt-3 text-xl font-medium">Why you use on your Project?</h3>
       <p className="mt-3 max-w-[350px] text-light-600">
         Discover why you should use it in your next project
       </p>
 
-      <div className="mt-8 grid grid-cols-2 gap-4">
-        <div className="h-[300px] rounded-2xl border bg-dark-700 p-8 shadow-lg">
+      <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className=" md:h-[240px] rounded-2xl border bg-dark-700 p-6 md:p-8 shadow-lg">
           <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-dark-400 text-light-700">
             <GitBranchPlus className="h-6 w-6" />
           </div>
@@ -65,18 +61,18 @@ const HomePage = ({}: Props) => {
           </p>
         </div>
 
-        <div className="h-[300px] rounded-2xl border bg-dark-700 p-8 shadow-lg">
+        <div className=" md:h-[240px] rounded-2xl border bg-dark-700 p-6 md:p-8 shadow-lg">
           <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-dark-400 text-light-700">
             <Bug className="h-6 w-6" />
           </div>
 
           <h4 className="mt-4 text-xl font-medium">Playground</h4>
           <p className="mt-2 max-w-sm text-light-600">
-            Test your endpoints, see the response and the request.
+            Test your endpoints, see the response and copy the Fetch code.
           </p>
         </div>
 
-        <div className="col-span-2 h-[350px] rounded-2xl border bg-dark-700 p-8 shadow-lg">
+        <div className="md:h-[300px] rounded-2xl border bg-dark-700 p-6 md:p-8 shadow-lg md:col-span-2">
           <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-dark-400 text-light-700">
             <Users2 className="h-6 w-6" />
           </div>

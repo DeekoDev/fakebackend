@@ -17,7 +17,7 @@ export const NavbarActionsUserProfile = ({}: Props) => {
   // convert this to a dropdown component
   return (
     <>
-      <div className="relative z-20">
+      <div className="relative z-20 shadow-lg">
         <img
           role="button"
           src={session?.user.image || USER_DEFAULT_IMAGE}

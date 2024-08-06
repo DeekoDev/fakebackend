@@ -7,8 +7,8 @@ interface Props {}
 
 export const DashboardHomeApiKeys = ({}: Props) => {
   return (
-    <div className="mt-8 flex w-full rounded-2xl border bg-dark-700 shadow-lg">
-      <div className="flex-1 p-8 pb-12">
+    <div className="mt-8 w-full rounded-2xl border bg-dark-700 shadow-lg p-8 pb-12">
+      
         <h2 className="text-lg font-medium">API KEY</h2>
         <p className="mt-4 max-w-md text-light-600">
           Create a API KEY to access to the API from your app! (you can test the
@@ -17,8 +17,7 @@ export const DashboardHomeApiKeys = ({}: Props) => {
 
         <DashboardHomeApiKeysCreate />
         <DashboardHomeApiKeysContainer />
-      </div>
-      <div className="flex-1 bg-dark-600"></div>
+    
     </div>
   );
 };

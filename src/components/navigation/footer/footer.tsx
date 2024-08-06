@@ -7,7 +7,7 @@ interface Props {}
 export const Footer = ({}: Props) => {
   return (
     <div className="bg-dark-900">
-      <div className="fluid-container mx-auto flex justify-between border-b py-8">
+      <div className="fluid-container mx-auto flex flex-col md:flex-row gap-4 justify-between border-b py-8">
         <Logo />
 
         <HackatonCTA />

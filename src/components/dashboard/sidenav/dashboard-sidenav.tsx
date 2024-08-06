@@ -18,7 +18,7 @@ export const DashboardSidenav = async ({ project }: Props) => {
   const isOwn = session?.user.id === project.authorId;
 
   return (
-    <div className="fixed left-0 top-0 flex h-screen w-[250px] flex-col border-r p-6">
+    <div className="flex w-full h-screen flex-col p-6">
       {/* Project info */}
       <DashboardSidenavInfo />
 
